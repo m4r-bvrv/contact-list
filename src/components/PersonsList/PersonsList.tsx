@@ -16,7 +16,7 @@ function PersonsList() {
 
   const btnContent = () =>
     status === Status.Pending ? (
-      <SyncLoader size={8} />
+      <SyncLoader aria-label="loading..." size={8} />
     ) : status === Status.Rejected ? (
       "Try again"
     ) : (
