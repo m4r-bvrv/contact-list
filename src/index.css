@@ -50,3 +50,9 @@ code {
   font-size: 14px;
   line-height: 1.8em;
 }
+
+.error {
+  color: #d30000;
+  font-size: 14px;
+  line-height: 1.8em;
+}

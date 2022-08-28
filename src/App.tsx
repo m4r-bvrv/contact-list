@@ -1,9 +1,10 @@
 import React from "react";
 import PersonInfo from "./components/PersonInfo/PersonInfo";
 import usePersonsList from "./hooks/usePersonsList";
+import { Status } from "./shared/types";
 
 function App() {
-  const { data, selected, loadMore } = usePersonsList();
+  const { status, error, data, selected, loadMore } = usePersonsList();
 
   const handleClick = async () => {
     loadMore();
@@ -16,7 +17,16 @@ function App() {
         {data.map((personInfo) => (
           <PersonInfo key={personInfo.id} data={personInfo} />
         ))}
-        <button type="button" onClick={handleClick}>
+        {status === Status.Rejected && (
+          <div className="error" role="alert">
+            {error?.message}
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={handleClick}
+          disabled={status === Status.Pending}
+        >
           Load more
         </button>
       </div>
