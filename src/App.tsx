@@ -27,7 +27,7 @@ function App() {
           onClick={handleClick}
           disabled={status === Status.Pending}
         >
-          Load more
+          {status === Status.Rejected ? "Try again" : "Load more"}
         </button>
       </div>
     </div>
