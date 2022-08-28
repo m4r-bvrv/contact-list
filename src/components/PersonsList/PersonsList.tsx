@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import { SyncLoader } from "react-spinners";
 import PersonInfo from "../PersonInfo/PersonInfo";
 import usePersonsList from "../../hooks/usePersonsList";
@@ -35,9 +35,6 @@ function PersonsList() {
             className={isSelected(personInfo.id) ? "person-info--selected" : ""}
           />
         ))}
-        {/* <SyncLoader
-          cssOverride={spinnerOverride}
-        /> */}
         {status === Status.Rejected && (
           <div className="error" role="alert">
             {error?.message}
