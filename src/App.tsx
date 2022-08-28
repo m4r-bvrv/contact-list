@@ -4,28 +4,36 @@ import PersonInfo from "./components/PersonInfo/PersonInfo";
 import usePersonsList from "./hooks/usePersonsList";
 import { Status } from "./shared/types";
 
-const override: CSSProperties = {
+const spinnerOverride: CSSProperties = {
   display: "block",
   margin: "30px auto",
 };
 
 function App() {
-  const { status, error, data, selected, loadMore } = usePersonsList();
+  const { status, error, data, selected, loadMore, select } = usePersonsList();
 
-  const handleClick = async () => {
+  const handleClick = () => {
     loadMore();
   };
+
+  const isSelected = (id: string) =>
+    selected.some((personId) => personId === id);
 
   return (
     <div className="App">
       <div className="selected">Selected contacts: {selected.length}</div>
       <div className="list">
         {data.map((personInfo) => (
-          <PersonInfo key={personInfo.id} data={personInfo} />
+          <PersonInfo
+            key={personInfo.id}
+            data={personInfo}
+            onClick={() => select(personInfo.id)}
+            className={isSelected(personInfo.id) ? "person-info--selected" : ""}
+          />
         ))}
         <SyncLoader
           loading={status === Status.Pending}
-          cssOverride={override}
+          cssOverride={spinnerOverride}
         />
         {status === Status.Rejected && (
           <div className="error" role="alert">

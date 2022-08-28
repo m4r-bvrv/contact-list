@@ -5,7 +5,7 @@ import { IPerson, Status } from "src/shared/types";
 const usePersonsList = () => {
   const [status, setStatus] = React.useState<Status>(Status.Idle);
   const [data, setData] = React.useState<IPerson[]>([]);
-  const [selected, setSelected] = React.useState<IPerson[]>([]);
+  const [selected, setSelected] = React.useState<string[]>([]);
   const [error, setError] = React.useState<Error | null>(null);
 
   const loadMore = async () => {
@@ -21,6 +21,15 @@ const usePersonsList = () => {
       });
   };
 
+  const select = (id: string) => {
+    console.log(id);
+    if (selected.some((personId) => personId === id)) {
+      setSelected((s) => s.filter((personId) => personId !== id));
+    } else {
+      setSelected((s) => [...s, id]);
+    }
+  };
+
   React.useEffect(() => {
     loadMore();
   }, []);
@@ -30,6 +39,7 @@ const usePersonsList = () => {
     data,
     selected,
     loadMore,
+    select,
     error,
   };
 };
