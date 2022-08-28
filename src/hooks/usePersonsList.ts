@@ -22,7 +22,6 @@ const usePersonsList = () => {
   };
 
   const select = (id: string) => {
-    console.log(id);
     if (selected.some((personId) => personId === id)) {
       setSelected((s) => s.filter((personId) => personId !== id));
     } else {
