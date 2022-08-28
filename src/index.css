@@ -26,6 +26,11 @@ code {
   margin: 10px 20px 0 0;
 }
 
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
 .person-info:hover {
   padding: 30px;
   border: 2px solid pink;
@@ -33,6 +38,7 @@ code {
 
 .person-info--selected {
   outline: solid 2px #ccc;
+  order: -1;
 }
 
 .firstNameLastName {
