@@ -4,11 +4,6 @@ import PersonInfo from "../PersonInfo/PersonInfo";
 import usePersonsList from "../../hooks/usePersonsList";
 import { Status } from "../../shared/types";
 
-const spinnerOverride: CSSProperties = {
-  display: "block",
-  margin: "30px auto",
-};
-
 function PersonsList() {
   const { status, error, data, selected, loadMore, select } = usePersonsList();
 
@@ -18,6 +13,15 @@ function PersonsList() {
 
   const isSelected = (id: string) =>
     selected.some((personId) => personId === id);
+
+  const btnContent = () =>
+    status === Status.Pending ? (
+      <SyncLoader size={8} />
+    ) : status === Status.Rejected ? (
+      "Try again"
+    ) : (
+      "Load more"
+    );
 
   return (
     <>
@@ -31,21 +35,21 @@ function PersonsList() {
             className={isSelected(personInfo.id) ? "person-info--selected" : ""}
           />
         ))}
-        <SyncLoader
-          loading={status === Status.Pending}
+        {/* <SyncLoader
           cssOverride={spinnerOverride}
-        />
+        /> */}
         {status === Status.Rejected && (
           <div className="error" role="alert">
             {error?.message}
           </div>
         )}
         <button
+          className="button"
           type="button"
           onClick={handleClick}
           disabled={status === Status.Pending}
         >
-          {status === Status.Rejected ? "Try again" : "Load more"}
+          {btnContent()}
         </button>
       </div>
     </>
